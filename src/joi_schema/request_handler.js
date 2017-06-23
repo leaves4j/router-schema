@@ -6,6 +6,12 @@ import type {
   IValidator,
 } from '../type';
 
+/**
+ * RequestHandler
+ *
+ * @class RequestHandler
+ * @implements {IRequestHandler}
+ */
 class RequestHandler implements IRequestHandler {
   validator: IValidator;
   convert: Convert;
@@ -13,6 +19,13 @@ class RequestHandler implements IRequestHandler {
     this.validator = validator;
     this.convert = convert;
   }
+  /**
+   * handle the request, will be registed to the router
+   *
+   * @param {...any} args
+   * @returns {Promise<void>}
+   * @memberof RequestHandler
+   */
   handler(...args: any): Promise<void> {
     const { data, callback } = this.convert(...args);
     const { error, value } = this.validator.vaildate(data);

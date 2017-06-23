@@ -11,18 +11,39 @@ import type {
 const RequestHandler = require('./request_handler');
 const Validator = require('./validator');
 
+/**
+ * JoiSchema Class
+ *
+ * @class JoiSchema
+ * @implements {IJoiSchema}
+ */
 class JoiSchema implements IJoiSchema {
   options: JoiSchemaOption;
   constructor(options: JoiSchemaOption): void {
     this.options = options;
   }
 
+  /**
+   * request conver, convert the request paramaters
+   *
+   * @param {...any} args
+   * @returns {ValidateData}
+   * @memberof JoiSchema
+   */
   handler(...args: any): ValidateData {
     if (this.options.handler) {
       return this.options.handler(...args);
     }
     throw new Error('JoiSchema.handler() should be implemented');
   }
+  /**
+   * load schema, register request handler to router
+   *
+   * @param {*} router
+   * @param {SchemaOption} schemaOption
+   * @returns {*}
+   * @memberof JoiSchema
+   */
 
   loadSchema(router: any, schemaOption: SchemaOption): any {
     const routerSchemaList: Array<RouterSchema> = JoiSchema.schemaPraser(schemaOption);
@@ -35,6 +56,14 @@ class JoiSchema implements IJoiSchema {
     return router;
   }
 
+  /**
+   * parase schema
+   *
+   * @static
+   * @param {any} schemaOption
+   * @returns {Array<RouterSchema>}
+   * @memberof JoiSchema
+   */
   static schemaPraser(schemaOption): Array<RouterSchema> {
     return Object.keys(schemaOption).map((key: string) => {
       const keyArray: Array<string> = key.split(' ');
