@@ -24,11 +24,12 @@ export type RouterSchema = {
   path: string,
   schema: Object
 }
+
 export type Convert = () => ValidateData;
 
 export interface IValidator {
   constructor(schema: Object, joiOption: Object): void;
-  vaildate(requestData: Object): ValidateResult;
+  validate(requestData: Object): ValidateResult;
 }
 
 export interface IRequestHandler {
@@ -40,4 +41,5 @@ export interface IJoiSchema {
   constructor(options: JoiSchemaOption): void;
   loadSchema(routerInstance: any, schema: SchemaOption): any;
   handler(): ValidateData;
+  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchema>;
 }
