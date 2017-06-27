@@ -6,10 +6,26 @@ import type { JoiSchemaOption, ValidateData } from './type';
 
 const JoiSchema = require('./joi_schema');
 
+/**
+ * ExpressJoiSchema
+ *
+ * @class ExpressJoiSchema
+ * @extends {JoiSchema}
+ */
 class ExpressJoiSchema extends JoiSchema {
   constructor(option: JoiSchemaOption) {
     super(option);
   }
+  /**
+   * Implement JoiSchema.handler()
+   *
+   * @override
+   * @param {$Request} req
+   * @param {$Response} res
+   * @param {NextFunction} next
+   * @returns {ValidateData}
+   * @memberof ExpressJoiSchema
+   */
   handler(req: $Request, res: $Response, next: NextFunction): ValidateData {
     if (this.options.handler) {
       return this.options.handler(req, res, next);
