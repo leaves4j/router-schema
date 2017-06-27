@@ -4,31 +4,38 @@
   "description": "schema validation via joi",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "flow check && rm -rf lib/* && flow-remove-types src/ -d lib/ --pretty"
+    "pretest":"npm run build",
+    "test": "ava test",
+    "build": "flow check && rm -rf lib/* && flow-remove-types src/ -d lib/ --pretty && rm -f lib/type.js",
+    "postinstall": "npm run build"
   },
-  "files":[
-    "lib",
-    "index.js"
+  "files": [
+    "lib"
   ],
   "keywords": [
     "joi",
     "schema",
-    "validate",
+    "validator",
     "validation"
   ],
   "author": "jiangq.leaves@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "eslint-plugin-flowtype": "^2.34.0",
+  },
+  "peerDependencies": {
     "joi": "^10.6.0"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-import": "^2.5.0",
+    "express": "^4.15.3",
     "flow-bin": "^0.48.0",
-    "flow-remove-types": "^1.2.1"
+    "flow-remove-types": "^1.2.1",
+    "koa": "^2.3.0",
+    "koa-router": "^7.2.1"
   }
 }
