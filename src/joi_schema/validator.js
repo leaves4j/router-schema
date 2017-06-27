@@ -27,8 +27,8 @@ class RequestHandler implements IValidator {
    * @returns {ValidateResult}
    * @memberof RequestHandler
    */
-  vaildate(requestData: Object): ValidateResult {
-    return this.joiValidator.vaildate(requestData, this.joiOption);
+  validate(requestData: Object): ValidateResult {
+    return this.joiValidator.validate(requestData, this.joiOption);
   }
 }
 

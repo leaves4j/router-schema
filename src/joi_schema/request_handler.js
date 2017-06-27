@@ -28,7 +28,7 @@ class RequestHandler implements IRequestHandler {
    */
   handler(...args: any): Promise<void> {
     const { data, callback } = this.convert(...args);
-    const { error, value } = this.validator.vaildate(data);
+    const { error, value } = this.validator.validate(data);
     return callback(error, value);
   }
 }
