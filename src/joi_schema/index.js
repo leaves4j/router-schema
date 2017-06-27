@@ -26,6 +26,7 @@ class JoiSchema implements IJoiSchema {
   /**
    * request conver, convert the request paramaters
    *
+   * @abstract
    * @param {...any} args
    * @returns {ValidateData}
    * @memberof JoiSchema
@@ -46,31 +47,31 @@ class JoiSchema implements IJoiSchema {
    */
 
   loadSchema(router: any, schemaOption: SchemaOption): any {
-    const routerSchemaList: Array<RouterSchema> = JoiSchema.schemaPraser(schemaOption);
+    const routerSchemaList: Array<RouterSchema> = JoiSchema.SchemaParser(schemaOption);
     routerSchemaList.forEach((routerSchema: RouterSchema) => {
       const { method, path, schema } = routerSchema;
       const validator: Validator = new Validator(schema, this.options.joiOption);
       const requestHandler: RequestHandler = new RequestHandler(this.handler, validator);
-      router[method.toLowerCase()](path, requestHandler.handler);
+      router[method](path, requestHandler.handler);
     });
     return router;
   }
 
   /**
-   * parase schema
+   * parse schema
    *
    * @static
-   * @param {any} schemaOption
+   * @param {SchemaOption} schemaOption
    * @returns {Array<RouterSchema>}
    * @memberof JoiSchema
    */
-  static schemaPraser(schemaOption): Array<RouterSchema> {
+  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchema> {
     return Object.keys(schemaOption).map((key: string) => {
       const keyArray: Array<string> = key.split(' ');
       let method: string = 'all';
       let path: string = '';
       if (keyArray.length > 1) {
-        method = keyArray[0];
+        method = keyArray[0].toLowerCase();
         path = keyArray[1];
       } else {
         path = keyArray[0];
