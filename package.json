@@ -7,7 +7,9 @@
     "pretest": "npm run build",
     "test": "ava test",
     "build": "flow check && rm -rf lib/* && flow-remove-types src/ -d lib/ --pretty && rm -f lib/type.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags"
   },
   "files": [
     "lib"
