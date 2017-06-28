@@ -52,7 +52,7 @@ class RouterSchema implements IRouterSchema {
       const { method, path, schema } = routerSchemaObject;
       const validator: Validator = new Validator(schema, this.options.joiOption);
       const requestHandler: RequestHandler = new RequestHandler(this.handler, validator);
-      router[method](path, requestHandler.handler);
+      router[method](path, requestHandler.handler.bind(requestHandler));
     });
     return router;
   }
