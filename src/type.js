@@ -2,7 +2,7 @@
 
 export type ValidateData = {
   data: Object,
-  callback(error: null | Object, value: Object | null): any;
+  callback(error: null | Error, value: Object | null): Promise<void> | void;
 }
 
 export type ValidateResult = {
@@ -34,7 +34,7 @@ export interface IValidator {
 
 export interface IRequestHandler {
   constructor(convert: Convert, validator: IValidator): void;
-  handler(...args: any): Promise<void>;
+  handler(...args: any): Promise<void> | void;
 }
 
 export interface IJoiSchema {
