@@ -20,7 +20,7 @@ const Validator = require('./validator');
 class JoiSchema implements IJoiSchema {
   options: JoiSchemaOption;
   constructor(options: JoiSchemaOption): void {
-    this.options = options;
+    this.options = options || { handler: null, joiOption: null };
   }
 
   /**
