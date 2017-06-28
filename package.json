@@ -1,7 +1,7 @@
 {
-  "name": "joi-schema",
+  "name": "router-schema",
   "version": "0.0.1",
-  "description": "schema validation via joi",
+  "description": "router schema validation based on joi",
   "main": "lib/index.js",
   "scripts": {
     "pretest": "npm run build",
@@ -14,9 +14,9 @@
   ],
   "keywords": [
     "joi",
-    "schema",
+    "router-schema",
     "validator",
-    "validation"
+    "schema"
   ],
   "author": "jiangq.leaves@gmail.com",
   "license": "MIT",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
+    "axios": "^0.16.2",
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
