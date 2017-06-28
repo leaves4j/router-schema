@@ -27,9 +27,6 @@ class ExpressRouterSchema extends RouterSchema {
    * @memberof ExpressRouterSchema
    */
   handler(req: $Request, res: $Response, next: (error?: Error) => void): ValidateData {
-    if (this.options.handler) {
-      return this.options.handler(req, res, next);
-    }
     const { query, body } = req;
     const callback = (error: null | Error, value: Object | null) => {
       if (error) {

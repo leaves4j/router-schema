@@ -26,9 +26,6 @@ class KoaRouterSchema extends RouterSchema {
    * @memberof KoaRouterSchema
    */
   handler(ctx: Context, next: () => Promise<void>): ValidateData {
-    if (this.options.handler) {
-      return this.options.handler(ctx, next);
-    }
     const { query } = ctx;
     const { body } = ctx.request;
     const callback = (error: null | Object, value: Object | null) => {
