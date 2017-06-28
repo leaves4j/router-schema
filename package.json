@@ -28,6 +28,7 @@
     "ava": "^0.19.1",
     "axios": "^0.16.2",
     "babel-eslint": "^7.2.3",
+    "body-parser": "^1.17.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-flowtype": "^2.34.0",
@@ -37,6 +38,7 @@
     "flow-remove-types": "^1.2.1",
     "joi": "^10.6.0",
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1"
   }
 }
