@@ -1,8 +1,10 @@
 const test = require('ava');
-const KoaRouterSchema = require('../lib/koa_router_schema');
 const Router = require('koa-router');
+const axios = require('axios');
+const KoaRouterSchema = require('../lib/koa_router_schema');
+const app = require('./helpers/koa_server');
 
-test('RouterSchema.property.loadSchema()', (t) => {
+test('KoaRouterSchema.property.loadSchema()', (t) => {
   const requestSchema = {
     'GET /foo/bar': {
       query: {
@@ -28,7 +30,7 @@ test('RouterSchema.property.loadSchema()', (t) => {
   t.true(router.stack[1].methods.includes('PUT'));
 });
 
-test('RouterSchema.property.handler() with validate success case', (t) => {
+test('KoaRouterSchema.property.handler() with validate success case', (t) => {
   const routerSchema = new KoaRouterSchema();
 
   const ctx = {
@@ -74,7 +76,7 @@ test('RouterSchema.property.handler() with validate success case', (t) => {
   });
 });
 
-test('RouterSchema.property.handler() with validate failure case', (t) => {
+test('KoaRouterSchema.property.handler() with validate failure case', (t) => {
   const routerSchema = new KoaRouterSchema();
 
   const ctx = {
@@ -121,3 +123,16 @@ test('RouterSchema.property.handler() with validate failure case', (t) => {
   });
 });
 
+test('Koa server request', async (t) => {
+  app.listen(8080);
+  try {
+    const [{ data: successData }, { data: failData }] = await Promise.all([
+      axios.post('http://localhost:8080/bar/foo?hello=world', { world: 123 }),
+      axios.post('http://localhost:8080/bar/foo?hello=world', { world: 'hello' }),
+    ]);
+    t.is(successData.hello, 'world');
+    t.is(failData.details[0].message, '"world" must be a number');
+  } catch (e) {
+    t.fail(e);
+  }
+});
