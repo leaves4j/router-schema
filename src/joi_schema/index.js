@@ -24,7 +24,7 @@ class JoiSchema implements IJoiSchema {
   }
 
   /**
-   * request conver, convert the request paramaters
+   * request convert, convert the request parameters
    *
    * @abstract
    * @param {...any} args
@@ -46,7 +46,7 @@ class JoiSchema implements IJoiSchema {
    * @memberof JoiSchema
    */
 
-  loadSchema(router: any, schemaOption: SchemaOption): any {
+  loadSchema(router: any, schemaOption: SchemaOption): * {
     const routerSchemaList: Array<RouterSchema> = JoiSchema.SchemaParser(schemaOption);
     routerSchemaList.forEach((routerSchema: RouterSchema) => {
       const { method, path, schema } = routerSchema;
