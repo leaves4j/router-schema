@@ -26,12 +26,12 @@ class ExpressJoiSchema extends JoiSchema {
    * @returns {ValidateData}
    * @memberof ExpressJoiSchema
    */
-  handler(req: $Request, res: $Response, next: NextFunction): ValidateData {
+  handler(req: $Request, res: $Response, next: (error?: Error) => void): ValidateData {
     if (this.options.handler) {
       return this.options.handler(req, res, next);
     }
     const { query, body } = req;
-    const callback = (error: null | Object, value: Object | null) => {
+    const callback = (error: null | Error, value: Object | null) => {
       if (error) {
         return next(error);
       }
