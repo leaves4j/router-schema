@@ -4,7 +4,7 @@
   "description": "schema validation via joi",
   "main": "lib/index.js",
   "scripts": {
-    "pretest":"npm run build",
+    "pretest": "npm run build",
     "test": "ava test",
     "build": "flow check && rm -rf lib/* && flow-remove-types src/ -d lib/ --pretty && rm -f lib/type.js",
     "postinstall": "npm run build"
@@ -20,8 +20,7 @@
   ],
   "author": "jiangq.leaves@gmail.com",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "joi": "^10.6.0"
   },
@@ -35,6 +34,7 @@
     "express": "^4.15.3",
     "flow-bin": "^0.48.0",
     "flow-remove-types": "^1.2.1",
+    "joi": "^10.6.0",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1"
   }
