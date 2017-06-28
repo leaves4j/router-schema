@@ -1,30 +1,30 @@
 // @flow
 
 import type { $Request, $Response, NextFunction } from 'express';
-import type { JoiSchemaOption, ValidateData } from './type';
+import type { RouterSchemaOption, ValidateData } from './type';
 
 
-const JoiSchema = require('./joi_schema');
+const RouterSchema = require('./router_schema');
 
 /**
- * ExpressJoiSchema
+ * ExpressRouterSchema
  *
- * @class ExpressJoiSchema
- * @extends {JoiSchema}
+ * @class ExpressRouterSchema
+ * @extends {RouterSchema}
  */
-class ExpressJoiSchema extends JoiSchema {
-  constructor(option: JoiSchemaOption) {
+class ExpressRouterSchema extends RouterSchema {
+  constructor(option: RouterSchemaOption) {
     super(option);
   }
   /**
-   * Implement JoiSchema.handler()
+   * Implement RouterSchema.handler()
    *
    * @override
    * @param {$Request} req
    * @param {$Response} res
    * @param {NextFunction} next
    * @returns {ValidateData}
-   * @memberof ExpressJoiSchema
+   * @memberof ExpressRouterSchema
    */
   handler(req: $Request, res: $Response, next: (error?: Error) => void): ValidateData {
     if (this.options.handler) {
@@ -46,4 +46,4 @@ class ExpressJoiSchema extends JoiSchema {
   }
 }
 
-module.exports = ExpressJoiSchema;
+module.exports = ExpressRouterSchema;

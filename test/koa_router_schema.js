@@ -1,8 +1,8 @@
 const test = require('ava');
-const KoaJoiSchema = require('../lib/koa_joi_schema');
+const KoaRouterSchema = require('../lib/koa_router_schema');
 const Router = require('koa-router');
 
-test('JoiSchema.property.loadSchema()', (t) => {
+test('RouterSchema.property.loadSchema()', (t) => {
   const requestSchema = {
     'GET /foo/bar': {
       query: {
@@ -15,9 +15,9 @@ test('JoiSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const joiSchema = new KoaJoiSchema();
+  const routerSchema = new KoaRouterSchema();
   const router = new Router();
-  const schemaRouter = joiSchema.loadSchema(router, requestSchema);
+  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(router.stack.length, 2);
   t.is(router.stack[0].path, '/foo/bar');
@@ -28,8 +28,8 @@ test('JoiSchema.property.loadSchema()', (t) => {
   t.true(router.stack[1].methods.includes('PUT'));
 });
 
-test('JoiSchema.property.handler() with validate success case', (t) => {
-  const joiSchema = new KoaJoiSchema();
+test('RouterSchema.property.handler() with validate success case', (t) => {
+  const routerSchema = new KoaRouterSchema();
 
   const ctx = {
     query: {
@@ -47,7 +47,7 @@ test('JoiSchema.property.handler() with validate success case', (t) => {
     t.pass();
   };
 
-  const { data, callback } = joiSchema.handler(ctx, next);
+  const { data, callback } = routerSchema.handler(ctx, next);
   t.deepEqual(data, {
     query: {
       hello: 'world',
@@ -74,8 +74,8 @@ test('JoiSchema.property.handler() with validate success case', (t) => {
   });
 });
 
-test('JoiSchema.property.handler() with validate failure case', (t) => {
-  const joiSchema = new KoaJoiSchema();
+test('RouterSchema.property.handler() with validate failure case', (t) => {
+  const routerSchema = new KoaRouterSchema();
 
   const ctx = {
     query: {
@@ -94,7 +94,7 @@ test('JoiSchema.property.handler() with validate failure case', (t) => {
     t.fail();
   };
 
-  const { data, callback } = joiSchema.handler(ctx, next);
+  const { data, callback } = routerSchema.handler(ctx, next);
   t.deepEqual(data, {
     query: {
       hello: 'world',

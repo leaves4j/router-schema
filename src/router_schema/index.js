@@ -1,25 +1,25 @@
 // @flow
 
 import type {
-  IJoiSchema,
+  IRouterSchema,
   SchemaOption,
   ValidateData,
-  RouterSchema,
-  JoiSchemaOption,
+  RouterSchemaObject,
+  RouterSchemaOption,
 } from '../type';
 
 const RequestHandler = require('./request_handler');
 const Validator = require('./validator');
 
 /**
- * JoiSchema Class
+ * RouterSchema Class
  *
- * @class JoiSchema
- * @implements {IJoiSchema}
+ * @class RouterSchema
+ * @implements {IRouterSchema}
  */
-class JoiSchema implements IJoiSchema {
-  options: JoiSchemaOption;
-  constructor(options: JoiSchemaOption): void {
+class RouterSchema implements IRouterSchema {
+  options: RouterSchemaOption;
+  constructor(options: RouterSchemaOption): void {
     this.options = options || { handler: null, joiOption: null };
   }
 
@@ -29,13 +29,13 @@ class JoiSchema implements IJoiSchema {
    * @abstract
    * @param {...any} args
    * @returns {ValidateData}
-   * @memberof JoiSchema
+   * @memberof RouterSchema
    */
   handler(...args: any): ValidateData {
     if (this.options.handler) {
       return this.options.handler(...args);
     }
-    throw new Error('JoiSchema.handler() should be implemented');
+    throw new Error('RouterSchema.handler() should be implemented');
   }
   /**
    * load schema, register request handler to router
@@ -43,13 +43,13 @@ class JoiSchema implements IJoiSchema {
    * @param {*} router
    * @param {SchemaOption} schemaOption
    * @returns {*}
-   * @memberof JoiSchema
+   * @memberof RouterSchema
    */
 
   loadSchema(router: any, schemaOption: SchemaOption): * {
-    const routerSchemaList: Array<RouterSchema> = JoiSchema.SchemaParser(schemaOption);
-    routerSchemaList.forEach((routerSchema: RouterSchema) => {
-      const { method, path, schema } = routerSchema;
+    const routerSchemaObjectList: Array<RouterSchemaObject> = RouterSchema.SchemaParser(schemaOption);
+    routerSchemaObjectList.forEach((routerSchemaObject: RouterSchemaObject) => {
+      const { method, path, schema } = routerSchemaObject;
       const validator: Validator = new Validator(schema, this.options.joiOption);
       const requestHandler: RequestHandler = new RequestHandler(this.handler, validator);
       router[method](path, requestHandler.handler);
@@ -63,9 +63,9 @@ class JoiSchema implements IJoiSchema {
    * @static
    * @param {SchemaOption} schemaOption
    * @returns {Array<RouterSchema>}
-   * @memberof JoiSchema
+   * @memberof RouterSchema
    */
-  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchema> {
+  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchemaObject> {
     return Object.keys(schemaOption).map((key: string) => {
       const keyArray: Array<string> = key.split(' ');
       let method: string = 'all';
@@ -82,4 +82,4 @@ class JoiSchema implements IJoiSchema {
 
 
 }
-module.exports = JoiSchema;
+module.exports = RouterSchema;

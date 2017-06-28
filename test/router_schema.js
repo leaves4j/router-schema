@@ -1,7 +1,7 @@
 const test = require('ava');
-const JoiSchema = require('../lib/joi_schema');
+const RouterSchema = require('../lib/router_schema');
 
-test('JoiSchema.SchemaParser()', (t) => {
+test('RouterSchema.SchemaParser()', (t) => {
   const requestSchema = {
     'GET /foo/bar': {
       query: {
@@ -14,7 +14,7 @@ test('JoiSchema.SchemaParser()', (t) => {
       },
     },
   };
-  const routerSchema = JoiSchema.SchemaParser(requestSchema);
+  const routerSchema = RouterSchema.SchemaParser(requestSchema);
   t.is(routerSchema.length, 2);
   t.deepEqual(routerSchema[0], {
     method: 'get',
@@ -36,7 +36,7 @@ test('JoiSchema.SchemaParser()', (t) => {
   });
 });
 
-test('JoiSchema.property.loadSchema()', (t) => {
+test('RouterSchema.property.loadSchema()', (t) => {
   const requestSchema = {
     'GET /foo/bar': {
       query: {
@@ -49,7 +49,7 @@ test('JoiSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const joiSchema = new JoiSchema();
+  const routerSchema = new RouterSchema();
   const stack = [];
   const router = {
     get(path, handle) {
@@ -60,7 +60,7 @@ test('JoiSchema.property.loadSchema()', (t) => {
     },
   };
 
-  const schemaRouter = joiSchema.loadSchema(router, requestSchema);
+  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(stack.length, 2);
   t.is(stack[0].method, 'get');
@@ -69,9 +69,9 @@ test('JoiSchema.property.loadSchema()', (t) => {
   t.is(stack[1].path, '/bar/foo');
 });
 
-test('JoiSchema.property.handler()', (t) => {
-  const joiSchema = new JoiSchema();
-  const error = t.throws(() => joiSchema.handler());
-  t.is(error.message, 'JoiSchema.handler() should be implemented');
+test('RouterSchema.property.handler()', (t) => {
+  const routerSchema = new RouterSchema();
+  const error = t.throws(() => routerSchema.handler());
+  t.is(error.message, 'RouterSchema.handler() should be implemented');
 });
 

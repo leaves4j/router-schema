@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const test = require('ava');
-const Validator = require('../lib/joi_schema/validator');
+const Validator = require('../lib/router_schema/validator');
 
 test('Validator.constructor()', (t) => {
   const validator = new Validator({ test: Joi.string() }, { allowUnknown: true });

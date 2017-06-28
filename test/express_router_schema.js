@@ -1,8 +1,8 @@
 const test = require('ava');
-const ExpressJoiSchema = require('../lib/express_joi_schema');
+const ExpressRouterSchema = require('../lib/express_router_schema');
 const { Router } = require('express');
 
-test('JoiSchema.property.loadSchema()', (t) => {
+test('RouterSchema.property.loadSchema()', (t) => {
   const requestSchema = {
     'GET /foo/bar': {
       query: {
@@ -15,9 +15,9 @@ test('JoiSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const joiSchema = new ExpressJoiSchema();
+  const routerSchema = new ExpressRouterSchema();
   const router = new Router();
-  const schemaRouter = joiSchema.loadSchema(router, requestSchema);
+  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(router.stack.length, 2);
 
@@ -27,8 +27,8 @@ test('JoiSchema.property.loadSchema()', (t) => {
   t.is(router.stack[1].route.stack[0].method, undefined);
 });
 
-test('JoiSchema.property.handler() with validate success case', (t) => {
-  const expressJoiSchema = new ExpressJoiSchema();
+test('RouterSchema.property.handler() with validate success case', (t) => {
+  const expressRouterSchema = new ExpressRouterSchema();
 
   const req = {
     query: {
@@ -43,7 +43,7 @@ test('JoiSchema.property.handler() with validate success case', (t) => {
     t.is(error, undefined);
   };
 
-  const { data, callback } = expressJoiSchema.handler(req, {}, next);
+  const { data, callback } = expressRouterSchema.handler(req, {}, next);
   t.deepEqual(data, {
     query: {
       hello: 'world',
@@ -69,8 +69,8 @@ test('JoiSchema.property.handler() with validate success case', (t) => {
   });
 });
 
-test('JoiSchema.property.handler() with validate failure case', (t) => {
-  const expressJoiSchema = new ExpressJoiSchema();
+test('RouterSchema.property.handler() with validate failure case', (t) => {
+  const expressRouterSchema = new ExpressRouterSchema();
 
   const req = {
     query: {
@@ -87,7 +87,7 @@ test('JoiSchema.property.handler() with validate failure case', (t) => {
     t.is(error, validateError);
   };
 
-  const { data, callback } = expressJoiSchema.handler(req, {}, next);
+  const { data, callback } = expressRouterSchema.handler(req, {}, next);
   t.deepEqual(data, {
     query: {
       hello: 'world',

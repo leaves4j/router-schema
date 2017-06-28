@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const test = require('ava');
-const RequestHandler = require('../lib/joi_schema/request_handler');
-const Validator = require('../lib/joi_schema/validator');
+const RequestHandler = require('../lib/router_schema/request_handler');
+const Validator = require('../lib/router_schema/validator');
 
 test('RequestHandler.prototype.handler() with validate success case', (t) => {
   const validator = new Validator({ query: { test: Joi.string() } });

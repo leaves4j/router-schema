@@ -1,29 +1,29 @@
 // @flow
 
 import type { Context } from 'koa';
-import type { JoiSchemaOption, ValidateData } from './type';
+import type { RouterSchemaOption, ValidateData } from './type';
 
 
-const JoiSchema = require('./joi_schema');
+const RouterSchema = require('./router_schema');
 /**
- * ExpressJoiSchema
+ * KoaRouterSchema
  *
- * @class ExpressJoiSchema
- * @extends {JoiSchema}
+ * @class KoaRouterSchema
+ * @extends {RouterSchema}
  */
-class ExpressJoiSchema extends JoiSchema {
-  constructor(option: JoiSchemaOption) {
+class KoaRouterSchema extends RouterSchema {
+  constructor(option: RouterSchemaOption) {
     super(option);
   }
 
  /**
-   * Implement JoiSchema.handler()
+   * Implement RouterSchema.handler()
    *
    * @override
    * @param {Context} ctx
    * @param {() => Promise<void>} next
    * @returns {ValidateData}
-   * @memberof ExpressJoiSchema
+   * @memberof KoaRouterSchema
    */
   handler(ctx: Context, next: () => Promise<void>): ValidateData {
     if (this.options.handler) {
@@ -46,4 +46,4 @@ class ExpressJoiSchema extends JoiSchema {
   }
 }
 
-module.exports = ExpressJoiSchema;
+module.exports = KoaRouterSchema;

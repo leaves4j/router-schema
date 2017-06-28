@@ -10,7 +10,7 @@ export type ValidateResult = {
   value: Object | null
 }
 
-export type JoiSchemaOption = {
+export type RouterSchemaOption = {
   joiOption: Object,
   handler: (...args: any) => ValidateData;
 }
@@ -19,7 +19,7 @@ export type SchemaOption = {
   [string]: Object
 }
 
-export type RouterSchema = {
+export type RouterSchemaObject = {
   method: string,
   path: string,
   schema: Object
@@ -42,9 +42,9 @@ export interface IRequestHandler {
   handler(...args: any): Promise<void> | void;
 }
 
-export interface IJoiSchema {
-  constructor(options: JoiSchemaOption): void;
+export interface IRouterSchema {
+  constructor(options: RouterSchemaOption): void;
   loadSchema(routerInstance: any, schema: SchemaOption): *;
   handler(): ValidateData;
-  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchema>;
+  static SchemaParser(schemaOption: SchemaOption): Array<RouterSchemaObject>;
 }
