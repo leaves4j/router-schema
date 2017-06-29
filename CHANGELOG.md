@@ -1,3 +1,8 @@
+v0.1.2
+---
+### Fix
+1. empty body or query bug
+
 v0.1.1
 ---
 ### Fix
