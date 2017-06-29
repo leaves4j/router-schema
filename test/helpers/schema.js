@@ -5,6 +5,8 @@ const schema = {
     query: {
       hello: Joi.string(),
     },
+  },
+  'POST /foo/bar': {
     body: {
       world: Joi.number().required(),
     },

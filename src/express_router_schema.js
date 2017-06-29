@@ -3,8 +3,8 @@
 import type { $Request, $Response, NextFunction } from 'express';
 import type { RouterSchemaOption, ValidateData } from './type';
 
-
 const RouterSchema = require('./router_schema');
+const utils = require('./utils');
 
 /**
  * ExpressRouterSchema
@@ -27,19 +27,25 @@ class ExpressRouterSchema extends RouterSchema {
    * @memberof ExpressRouterSchema
    */
   handler(req: $Request, res: $Response, next: (error?: Error) => void): ValidateData {
-    const { query, body } = req;
+    const hasQuery: boolean = !utils.isEmptyObject(req.query);
+    const hasBody: boolean = !utils.isEmptyObject(req.body);
+
+    const data: Object = {};
+    if (hasQuery) data.query = req.query;
+    if (hasBody) data.body = req.body;
+
     const callback = (error: null | Error, value: Object | null) => {
       if (error) {
         return next(error);
       }
       if (value) {
-        req.query = value.query;
-        req.body = value.body;
+        if (hasQuery) req.query = value.query;
+        if (hasBody) req.body = value.body;
       }
 
       return next();
     };
-    return { data: { query, body }, callback };
+    return { data, callback };
   }
 }
 

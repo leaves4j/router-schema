@@ -2,7 +2,7 @@ const test = require('ava');
 const ExpressRouterSchema = require('../lib/express_router_schema');
 const { Router } = require('express');
 const axios = require('axios');
-const app = require('./helpers/koa_server');
+const app = require('./helpers/express_server');
 
 test('ExpressRouterSchema.property.loadSchema()', (t) => {
   const requestSchema = {
@@ -119,12 +119,14 @@ test('ExpressRouterSchema.property.handler() with validate failure case', (t) =>
 test('Express server request', async (t) => {
   app.listen(8081);
   try {
-    const [{ data: successData }, { data: failData }] = await Promise.all([
-      axios.post('http://localhost:8081/bar/foo?hello=world', { world: 123 }),
-      axios.post('http://localhost:8081/bar/foo?hello=world', { world: 'hello' }),
+    const result = await Promise.all([
+      axios.get('http://localhost:8081/foo/bar?hello=world'),
+      axios.post('http://localhost:8081/foo/bar', { world: 'hello' }),
+      axios.post('http://localhost:8081/foo/bar', { world: 123 }),
     ]);
-    t.is(successData.hello, 'world');
-    t.is(failData.details[0].message, '"world" must be a number');
+    t.is(result[0].data.hello, 'world');
+    t.is(result[1].data.details[0].message, '"world" must be a number');
+    t.is(result[2].data.hello, 'world');
   } catch (e) {
     t.fail(e);
   }
