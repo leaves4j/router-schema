@@ -27,11 +27,11 @@ class RouterSchema implements IRouterSchema {
    * request convert, convert the request parameters
    *
    * @abstract
-   * @param {...any} args
+   * @param {...Array<any>} args
    * @returns {ValidateData}
    * @memberof RouterSchema
    */
-  handler(...args: any): ValidateData {
+  handler(...args: Array<any>): ValidateData {
     if (this.options.handler) {
       return this.options.handler(...args);
     }

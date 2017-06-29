@@ -12,7 +12,7 @@ export type ValidateResult = {
 
 export type RouterSchemaOption = {
   joiOption: Object,
-  handler: (...args: any) => ValidateData;
+  handler: (...args: Array<any>) => ValidateData;
 }
 
 export type SchemaOption = {
@@ -39,7 +39,7 @@ export interface IValidator {
 
 export interface IRequestHandler {
   constructor(convert: Convert, validator: IValidator): void;
-  handler(...args: any): Promise<void> | void;
+  handler(...args: Array<any>): Promise<void> | void;
 }
 
 export interface IRouterSchema {
