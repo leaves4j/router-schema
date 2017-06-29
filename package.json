@@ -1,6 +1,6 @@
 {
   "name": "router-schema",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "router schema validation based on joi",
   "main": "lib/index.js",
   "scripts": {
