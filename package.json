@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "pretest": "npm run build",
-    "test": "ava test",
+    "test": "nyc ava test",
     "build": "flow check && rm -rf lib/* && flow-remove-types src/ -d lib/ --pretty && rm -f lib/type.js",
     "version": "npm run build && git add -A",
     "postversion": "git push && git push --tags"
@@ -44,6 +44,7 @@
     "joi": "^10.6.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.2.1"
+    "koa-router": "^7.2.1",
+    "nyc": "^11.0.3"
   }
 }
