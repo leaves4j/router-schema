@@ -39,8 +39,6 @@ class KoaRouterSchema extends RouterSchema {
       }
 
       if (value) {
-        ctx.query = value.query;
-        ctx.request.body = value.body;
         if (hasQuery) ctx.query = value.query;
         if (hasBody) ctx.request.body = value.body;
       }
