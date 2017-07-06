@@ -6,8 +6,8 @@ const schema = require('./schema');
 
 const app = express();
 
-const routerSchema = new ExpressRouterSchema();
-const router = routerSchema.loadSchema(express.Router(), schema);
+const routerSchema = new ExpressRouterSchema(express.Router());
+const router = routerSchema.loadSchema(schema);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,7 +1,7 @@
 // @flow
 
-import type { $Request, $Response, NextFunction } from 'express';
-import type { RouterSchemaOption, ValidateData } from './type';
+import type { $Request, $Response } from 'express';
+import type { RouterSchemaOption, ValidateData, IRouter } from './type';
 
 const RouterSchema = require('./router_schema');
 const utils = require('./utils');
@@ -13,8 +13,8 @@ const utils = require('./utils');
  * @extends {RouterSchema}
  */
 class ExpressRouterSchema extends RouterSchema {
-  constructor(option: RouterSchemaOption) {
-    super(option);
+  constructor(router: IRouter, option: RouterSchemaOption) {
+    super(router, option);
   }
   /**
    * Implement RouterSchema.handler()

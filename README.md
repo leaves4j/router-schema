@@ -55,9 +55,9 @@ const bodyParser = require('koa-bodyparser');
 const { KoaRouterSchema } = require('router-schema');
 const schema = require('./schema');
 
-const routerSchema = new KoaRouterSchema();
+const routerSchema = new KoaRouterSchema(new Router());
 const app = new Koa();
-const router = routerSchema.loadSchema(new Router(), schema);
+const router = routerSchema.loadSchema(schema);
 
 // handle the errors
 app.use(async (ctx, next) => {
@@ -90,8 +90,8 @@ const schema = require('./schema');
 
 const app = express();
 
-const routerSchema = new ExpressRouterSchema();
-const router = routerSchema.loadSchema(express.Router(), schema);
+const routerSchema = new ExpressRouterSchema(express.Router());
+const router = routerSchema.loadSchema(schema);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

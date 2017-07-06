@@ -1,3 +1,8 @@
+v0.2.0
+---
+### Changes
+1. change RouterSchema.constructor() and RouterSchema.property.loadSchema() parameters
+
 v0.1.3
 ---
 ### Fix

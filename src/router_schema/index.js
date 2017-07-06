@@ -1,6 +1,7 @@
 // @flow
 
 import type {
+  IRouter,
   IRouterSchema,
   SchemaOption,
   ValidateData,
@@ -19,8 +20,10 @@ const Validator = require('./validator');
  */
 class RouterSchema implements IRouterSchema {
   options: RouterSchemaOption;
-  constructor(options: RouterSchemaOption): void {
+  router: IRouter;
+  constructor(router: IRouter, options: RouterSchemaOption): void {
     this.options = options || { handler: null, joiOption: null };
+    this.router = router;
   }
 
   /**
@@ -46,15 +49,15 @@ class RouterSchema implements IRouterSchema {
    * @memberof RouterSchema
    */
 
-  loadSchema(router: any, schemaOption: SchemaOption): * {
+  loadSchema(schemaOption: SchemaOption): IRouter {
     const routerSchemaObjectList: Array<RouterSchemaObject> = RouterSchema.SchemaParser(schemaOption);
     routerSchemaObjectList.forEach((routerSchemaObject: RouterSchemaObject) => {
       const { method, path, schema } = routerSchemaObject;
       const validator: Validator = new Validator(schema, this.options.joiOption);
       const requestHandler: RequestHandler = new RequestHandler(this.handler, validator);
-      router[method](path, requestHandler.handler.bind(requestHandler));
+      this.router[method](path, requestHandler.handler.bind(requestHandler));
     });
-    return router;
+    return this.router;
   }
 
   /**

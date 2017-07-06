@@ -8,7 +8,7 @@ const schema = {
   },
   'POST /foo/bar': {
     body: {
-      world: Joi.number().required(),
+      world: Joi.number(),
     },
   },
   '/bar/foo': {

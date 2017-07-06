@@ -28,9 +28,10 @@ export type RouterSchemaObject = {
 export type Convert = () => ValidateData;
 
 // Flow doesn't support call of computed property for method dispatch
-export interface IRouter {
-  [x: string]: (path: string, ...handler: (...any) => Promise<void> | void) => void
-}
+// export interface IRouter {
+//   [x: string]: (path: string, ...handler: (...any) => Promise<void> | void) => void
+// }
+export type IRouter = any;
 
 export interface IValidator {
   constructor(schema: Object, joiOption: Object): void;
@@ -43,8 +44,9 @@ export interface IRequestHandler {
 }
 
 export interface IRouterSchema {
-  constructor(options: RouterSchemaOption): void;
-  loadSchema(routerInstance: any, schema: SchemaOption): *;
+  router: IRouter;
+  constructor(router: IRouter, options: RouterSchemaOption): void;
+  loadSchema(schema: SchemaOption): IRouter;
   handler(): ValidateData;
   static SchemaParser(schemaOption: SchemaOption): Array<RouterSchemaObject>;
 }

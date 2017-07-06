@@ -1,7 +1,7 @@
 // @flow
 
 import type { Context } from 'koa';
-import type { RouterSchemaOption, ValidateData } from './type';
+import type { RouterSchemaOption, ValidateData, IRouter } from './type';
 
 const RouterSchema = require('./router_schema');
 const utils = require('./utils');
@@ -12,8 +12,8 @@ const utils = require('./utils');
  * @extends {RouterSchema}
  */
 class KoaRouterSchema extends RouterSchema {
-  constructor(option: RouterSchemaOption) {
-    super(option);
+  constructor(router: IRouter, option: RouterSchemaOption) {
+    super(router, option);
   }
 
  /**

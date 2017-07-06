@@ -17,9 +17,9 @@ test('ExpressRouterSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const routerSchema = new ExpressRouterSchema();
   const router = new Router();
-  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
+  const routerSchema = new ExpressRouterSchema(router);
+  const schemaRouter = routerSchema.loadSchema(requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(router.stack.length, 2);
 

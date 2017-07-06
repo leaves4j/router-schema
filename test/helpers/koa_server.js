@@ -4,9 +4,9 @@ const bodyParser = require('koa-bodyparser');
 const { KoaRouterSchema } = require('../../lib');
 const schema = require('./schema');
 
-const routerSchema = new KoaRouterSchema();
+const routerSchema = new KoaRouterSchema(new Router());
 const app = new Koa();
-const router = routerSchema.loadSchema(new Router(), schema);
+const router = routerSchema.loadSchema(schema);
 
 // handle the errors
 app.use(async (ctx, next) => {

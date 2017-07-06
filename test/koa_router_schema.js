@@ -17,9 +17,9 @@ test('KoaRouterSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const routerSchema = new KoaRouterSchema();
   const router = new Router();
-  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
+  const routerSchema = new KoaRouterSchema(router);
+  const schemaRouter = routerSchema.loadSchema(requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(router.stack.length, 2);
   t.is(router.stack[0].path, '/foo/bar');

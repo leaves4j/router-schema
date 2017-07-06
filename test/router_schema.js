@@ -49,7 +49,6 @@ test('RouterSchema.property.loadSchema()', (t) => {
       },
     },
   };
-  const routerSchema = new RouterSchema();
   const stack = [];
   const router = {
     get(path, handle) {
@@ -59,8 +58,9 @@ test('RouterSchema.property.loadSchema()', (t) => {
       stack.push({ method: 'all', path, handle });
     },
   };
+  const routerSchema = new RouterSchema(router);
 
-  const schemaRouter = routerSchema.loadSchema(router, requestSchema);
+  const schemaRouter = routerSchema.loadSchema(requestSchema);
   t.deepEqual(schemaRouter, router);
   t.is(stack.length, 2);
   t.is(stack[0].method, 'get');
