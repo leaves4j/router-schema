@@ -5,7 +5,6 @@ router-schema
 + [Installation](#installation)
 + [Example](#example)
 + [API](#api)
-+ [Schema](#schema)
 + [Change Log](#change-log)
 
 ## Installation
@@ -108,11 +107,50 @@ app.listen(8080);
 
 ## API
 
-todo
+### `RouterSchema.constructor(router, [options])`
+- `router` Router instance
+- `options` an optional object with the following optional keys
+  - `joiOption` joi config
+  - `handler` request handler `(...any) => ({data: {}, callback: (err,result) => {}})`
 
-## Schema
+```js
+const router = new Express.Router();
+const routerSchema = new RouterSchema(router,{
+  joiOption: {convert: false},
+  handler: (req, res, next) => { //override default handler
+    return {
+      data: {body: req.body}, //data to be checked
+      callback: (err, result) => { //check callback
+        if(err) return next(err);
+        next();
+      }
+    }
+  }
+})
+```
 
-todo
+### RouterSchema.property.loadSchema(schema)
+- `schema` request data schema
+
+```js
+const schema = {
+  'POST /foo/bar': { // [method + ]path
+    query: { // request query schema
+      foo: Joi.string()
+    }
+  },
+  '/bar/foo': {
+    body: { //request post data schema
+      bar: Joi.number()
+    }
+  }
+}
+
+const routerSchema = new RouterSchema(new Express.Router());
+const router = routerSchema.loadSchema(schema); // or router = routerSchema.router;
+
+```
+
 
 ## ChangeLog
 
