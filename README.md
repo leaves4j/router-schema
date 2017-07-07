@@ -147,7 +147,10 @@ const schema = {
 }
 
 const routerSchema = new RouterSchema(new Express.Router());
-const router = routerSchema.loadSchema(schema); // or router = routerSchema.router;
+const router = routerSchema.loadSchema(schema); 
+// or 
+//routerSchema.loadSchema(schema)
+//const router = routerSchema.router;
 
 ```
 
